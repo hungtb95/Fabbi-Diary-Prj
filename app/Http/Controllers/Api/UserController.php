@@ -7,16 +7,16 @@ use app\Repositories\UserRepository\UserRepositoryInterface;
 
 class User extends Controller
 {
-    protected $_userRepo;
+    protected $userRepo;
 
     public function __construct(UserRepositoryInterface $userRepo)
     {
-        $this->_userRepo = $userRepo;
+        $this->userRepo = $userRepo;
     }
 
     public function index()
     {
-        $users = $this->userRepo->getAll();
+        $users = $this->userRepo->getAllUser();
         
         return response()->json($users);
     }
