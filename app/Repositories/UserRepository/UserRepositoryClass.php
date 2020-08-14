@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Repositories\UserRepository;
+namespace App\Repositories\UserRepository;
 
 
 use App\Repositories\CommonRepository\BaseRepositoryClass;
@@ -14,7 +14,7 @@ class UserRepositoryClass extends BaseRepositoryClass implements UserRepositoryI
 
     public function getTopUser()
     {
-        return $this->model->select('name')->take(Config::get('UserRepositoryClassConfig.take_number'))->get();
+        return $this->model->select('name')->take(config('user.take_number'))->get();
     }
 
     public function getAllUser()

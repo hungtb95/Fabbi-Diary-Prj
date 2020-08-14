@@ -1,8 +1,9 @@
 <?php
 
-namespace app\Repositories\UserRepository;
+namespace App\Repositories\UserRepository;
 
 interface UserRepositoryInterface
 {
     public function getTopUser();
+    public function getAllUser();
 }

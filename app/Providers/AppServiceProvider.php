@@ -13,9 +13,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(
+        $this->app->singleton(
             \App\Repositories\UserRepository\UserRepositoryInterface::class,
             \App\Repositories\UserRepository\UserRepositoryClass::class
+        );
+
+        $this->app->singleton(
+            \App\Repositories\DiaryRepository\DiaryRepositoryInterface::class,
+            \App\Repositories\DiaryRepository\DiaryRepositoryClass::class
         );
     }
 
