@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DiaryRequest;
-use Illuminate\Http\Request;
 use App\Repositories\DiaryRepository\DiaryRepositoryInterface;
+use Illuminate\Support\Facades\Auth;
 
 class DiaryController extends Controller
 {
@@ -34,5 +34,12 @@ class DiaryController extends Controller
         $allPublicDiary = $this->diaryRepo->getAllPublicDiary($title, $perPage);
 
         return response()->json($allPublicDiary);
+    }
+
+    public function getDetailDiary($diaryID)
+    {
+        $detailDiaries = $this->diaryRepo->getDetailDiaryOfUser($diaryID);
+
+        return response()->json($detailDiaries);
     }
 }

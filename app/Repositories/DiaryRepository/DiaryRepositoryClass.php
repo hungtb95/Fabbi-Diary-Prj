@@ -71,4 +71,36 @@ class DiaryRepositoryClass extends BaseRepositoryClass implements DiaryRepositor
             ];
         }
     }
+
+    public function getDetailDiaryOfUser($diaryID)
+    {
+        try {
+            $public = config('diary.public');
+            $userID = Auth::check() ? Auth::id() : null;
+
+            if ($userID == null) {
+                $detailDiary = DB::table('diaries')
+                    ->where([
+                        ['access_range', $public],
+                        ['id', $diaryID],
+                    ])
+                    ->get();
+            } else {
+                $detailDiary = DB::table('diaries')
+                    ->where([
+                        ['user_id', $userID],
+                        ['id', $diaryID],
+                    ])
+                    ->get();
+            }
+
+            return $detailDiary;
+        } catch (Exception $ex) {
+            return $error = [
+                'userMessage' => 'System Error',
+                'internalMessage' => $ex->getMessage(),
+                'code' => 500,
+            ];
+        }
+    }
 }

@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::get('users/diary', 'Api\DiaryController@getDiaryOfUser')->middleware('auth');
 Route::get('diaries', 'Api\DiaryController@getAllPublicDiary');
+Route::get('diaries/{diaryID}', 'Api\DiaryController@getDetailDiary');
