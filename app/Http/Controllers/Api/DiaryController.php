@@ -42,4 +42,11 @@ class DiaryController extends Controller
 
         return response()->json($detailDiaries);
     }
+
+    public function createDiary(DiaryRequest $request)
+    {
+        $newDiary = $this->diaryRepo->createNewDiaryOfUser($request);
+
+        return response()->json($newDiary);
+    }
 }

@@ -26,6 +26,7 @@ class DiaryRequest extends FormRequest
         return [
             'perpage' => 'numeric | min:0 | required',
             'title' => 'min:0',
+            'content' => 'required',
         ];
     }
 
@@ -34,6 +35,7 @@ class DiaryRequest extends FormRequest
         return [
             'perpage.numeric' => 'not a numeric idiot',
             'perpage.required' => 'need input something !!',
+            'content.required' => 'need content of diary !!',
         ];
     }
 }
