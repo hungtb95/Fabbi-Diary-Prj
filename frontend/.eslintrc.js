@@ -49,8 +49,10 @@ module.exports = {
     'func-names': ['error', 'never'],
     'arrow-parens': ['error', 'as-needed'],
     'comma-dangle': ['error', 'never'],
-    'import/first': [ 'error', 'DISABLE-absolute-first' ],
+    'import/first': ['error', 'DISABLE-absolute-first'],
     'max-len': 'off',
-    'arrow-body-style': 'off'
+    'arrow-body-style': 'off',
+    'linebreak-style': ["error", "windows"],
+    'quotes': ["error", "double"]
   }
 }
