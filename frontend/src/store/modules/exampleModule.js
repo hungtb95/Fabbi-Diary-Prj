@@ -1,7 +1,7 @@
 const exampleModule = {
   namespaced: true,
   state: {
-    example: 'example module'
+    example: "example module"
   },
   getters: {
     GET_EXAMPLE_MODULE: state => {
