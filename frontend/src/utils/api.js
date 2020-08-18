@@ -1,9 +1,9 @@
-import axios from 'axios';
+import axios from "axios";
 
 const SERVER_BASE_URL = process.env.BASE_URL;
 const http = axios.create({
   headers: {
-    'Content-Type': 'application/json'
+    "Content-Type": "application/json"
   }
 });
 

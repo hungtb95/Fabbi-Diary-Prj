@@ -9,8 +9,8 @@ function component(path) {
 
 export default [
   {
-    path: '/',
-    name: 'HelloWorld',
-    component: component('HelloWorld')
+    path: "/",
+    name: "HelloWorld",
+    component: component("HelloWorld")
   }
 ];
