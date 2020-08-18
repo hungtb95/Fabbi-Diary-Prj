@@ -103,4 +103,26 @@ class DiaryRepositoryClass extends BaseRepositoryClass implements DiaryRepositor
             ];
         }
     }
+
+    public function createNewDiaryOfUser($request)
+    {
+        try {
+            $detailDiaryArray = [
+                'user_id' => Auth::id(),
+                'title' => $request->title,
+                'content' => $request->content,
+                'access_range' => $request->access_range,
+            ];
+
+            $this->create($detailDiaryArray);
+
+            return true;
+        } catch (Exception $ex) {
+            return $error = [
+                'userMessage' => 'System Error',
+                'internalMessage' => $ex->getMessage(),
+                'code' => 500,
+            ];
+        }
+    }
 }
