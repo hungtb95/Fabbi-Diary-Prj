@@ -22,3 +22,5 @@ Route::get('diaries', 'Api\DiaryController@getAllPublicDiary');
 Route::get('diaries/{diaryID}', 'Api\DiaryController@getDetailDiary');
 Route::post('diaries', 'Api\DiaryController@createDiary')->middleware('auth');
 Route::put('diaries/{diaryID}', 'Api\DiaryController@update')->middleware('auth');
+Route::post('comments','Api\CommentController@store')->middleware('auth');
+
