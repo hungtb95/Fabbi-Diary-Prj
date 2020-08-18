@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const SERVER_BASE_URL = 'http://localhost:8000'; // TODO: put in env
+const SERVER_BASE_URL = process.env.BASE_URL;
 const http = axios.create({
   headers: {
     'Content-Type': 'application/json'

@@ -1,13 +1,1 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <div id="app"></div>
-<script src="{{ mix("js/main.js")}}"></script>
-</body>
-</html>
+<!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>diary</title><link href=/static/css/app.78c2c69f3b5ca8a5b3947536bb4a16bc.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=/static/js/manifest.1206ae9ca52217456883.js></script><script type=text/javascript src=/static/js/vendor.61db55128442fe9266e7.js></script><script type=text/javascript src=/static/js/app.9697eebde27a6defa463.js></script></body></html>
