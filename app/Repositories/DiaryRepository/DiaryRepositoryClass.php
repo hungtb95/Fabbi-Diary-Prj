@@ -167,4 +167,40 @@ class DiaryRepositoryClass extends BaseRepositoryClass implements DiaryRepositor
             ];
         }
     }
+
+    public function deleteDiaryOfUser($request)
+    {
+        try {
+            $diaryID = $request->diaryID;
+
+            $deleteDiary = $this->delete($diaryID);
+
+            if (!$deleteDiary) {
+                return [
+                    'status' => 'error',
+                    'data' => [
+                        'internalMessage' => 'No record found',
+                        'code' => 404,
+                    ]
+                ];
+            }
+
+            return [
+                'status' => 'success',
+                'data' => [
+                    'internalMessage' => 'deleted successfully',
+                    'code' => 200,
+                ]
+            ];
+        } catch (Exception $ex) {
+            return [
+                'status' => 'error',
+                'data' => [
+                    'userMessage' => 'System Error',
+                    'internalMessage' => $ex->getMessage(),
+                    'code' => 500,
+                ]
+            ];
+        }
+    }
 }

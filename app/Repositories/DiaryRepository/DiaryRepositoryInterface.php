@@ -9,4 +9,5 @@ interface DiaryRepositoryInterface
     public function getDetailDiaryOfUser($diaryID);
     public function createNewDiaryOfUser($request);
     public function updateDiaryOfUser($request);
+    public function deleteDiaryOfUser($request);
 }

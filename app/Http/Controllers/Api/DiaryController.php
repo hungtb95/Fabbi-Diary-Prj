@@ -56,4 +56,11 @@ class DiaryController extends Controller
 
         return response()->json($updateDiary, $updateDiary['data']['code']);
     }
+
+    public function delete(DiaryRequest $request)
+    {
+        $deleteDiary = $this->diaryRepo->deleteDiaryOfUser($request);
+
+        return response()->json($deleteDiary, $deleteDiary['data']['code']);
+    }
 }
