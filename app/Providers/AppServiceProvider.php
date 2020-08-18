@@ -22,6 +22,11 @@ class AppServiceProvider extends ServiceProvider
             \App\Repositories\DiaryRepository\DiaryRepositoryInterface::class,
             \App\Repositories\DiaryRepository\DiaryRepositoryClass::class
         );
+
+        $this->app->singleton(
+            \App\Repositories\CommentRepository\CommentRepositoryInterface::class,
+            \App\Repositories\CommentRepository\CommentRepositoryClass::class
+        );
     }
 
     /**
