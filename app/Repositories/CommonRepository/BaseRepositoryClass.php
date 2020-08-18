@@ -50,6 +50,7 @@ abstract class BaseRepositoryClass implements RepositoryInterface
         $result = $this->find($id);
         if ($result) {
             $result->update($attributes);
+            
             return $result;
         }
 

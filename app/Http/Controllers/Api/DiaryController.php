@@ -49,4 +49,11 @@ class DiaryController extends Controller
 
         return response()->json($newDiary);
     }
+
+    public function update(DiaryRequest $request)
+    {
+        $updateDiary = $this->diaryRepo->updateDiaryOfUser($request);
+
+        return response()->json($updateDiary, $updateDiary['data']['code']);
+    }
 }

@@ -125,4 +125,46 @@ class DiaryRepositoryClass extends BaseRepositoryClass implements DiaryRepositor
             ];
         }
     }
+
+    public function updateDiaryOfUser($request)
+    {
+        try {
+            $diaryID = $request->diaryID;
+
+            $detailUpdateDiaryArray = [
+                'title' => $request->title,
+                'content' => $request->content,
+                'access_range' => $request->access_range,
+            ];
+
+            $updateDiary = $this->update($diaryID, $detailUpdateDiaryArray);
+
+            if (!$updateDiary) {
+                return [
+                    'status' => 'error',
+                    'data' => [
+                        'internalMessage' => 'No record found',
+                        'code' => 404
+                    ]
+                ];
+            } else {
+                return [
+                    'status' => 'success',
+                    'data' => [
+                        'internalMessage' => 'Update successful',
+                        'code' => 200
+                    ]
+                ];
+            }
+        } catch (Exception $ex) {
+            return [
+                'status' => 'error',
+                'data' => [
+                    'userMessage' => 'System Error',
+                    'internalMessage' => $ex->getMessage(),
+                    'code' => 500,
+                ]
+            ];
+        }
+    }
 }

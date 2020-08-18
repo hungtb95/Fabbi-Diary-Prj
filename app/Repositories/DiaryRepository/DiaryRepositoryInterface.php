@@ -8,4 +8,5 @@ interface DiaryRepositoryInterface
     public function getAllPublicDiary($title, $perPage);
     public function getDetailDiaryOfUser($diaryID);
     public function createNewDiaryOfUser($request);
+    public function updateDiaryOfUser($request);
 }
