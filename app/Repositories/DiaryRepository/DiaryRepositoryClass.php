@@ -2,6 +2,9 @@
 
 namespace App\Repositories\DiaryRepository;
 
+use App\Http\Requests\DiaryRequest;
+use App\Models\Diary;
+use App\Models\DiaryView;
 use App\Repositories\CommonRepository\BaseRepositoryClass;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -78,25 +81,32 @@ class DiaryRepositoryClass extends BaseRepositoryClass implements DiaryRepositor
             $public = config('diary.public');
             $userID = Auth::check() ? Auth::id() : null;
 
+            DiaryView::firstOrCreate([
+                'diary_id' => $diaryID
+            ]);
+
+            $diaryView = DiaryView::where('diary_id', $diaryID)->first();
+
+            $diaryView->view += 1;
+
+            DiaryView::where('diary_id', $diaryID)
+                ->update(['view' => $diaryView->view]);
+
             if ($userID == null) {
-                $detailDiary = DB::table('diaries')
-                    ->where([
-                        ['access_range', $public],
-                        ['id', $diaryID],
-                    ])
-                    ->get();
+                $detailDiary = Diary::where('id', $diaryID)
+                    ->where('access_range', $public)
+                    ->with('diaryView')
+                    ->first();
             } else {
-                $detailDiary = DB::table('diaries')
-                    ->where([
-                        ['user_id', $userID],
-                        ['id', $diaryID],
-                    ])
-                    ->get();
+                $detailDiary = Diary::where('id', $diaryID)
+                    ->where('user_id', $userID)
+                    ->with('diaryView')
+                    ->first();
             }
 
             return $detailDiary;
         } catch (Exception $ex) {
-            return $error = [
+            return [
                 'userMessage' => 'System Error',
                 'internalMessage' => $ex->getMessage(),
                 'code' => 500,

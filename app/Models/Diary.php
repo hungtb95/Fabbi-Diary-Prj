@@ -16,4 +16,8 @@ class Diary extends Model
     {
         return $this->hasMany('App\Models\Comment');
     }
+    public function diaryView()
+    {
+        return $this->hasOne('App\Models\DiaryView', 'diary_id', 'id');
+    }
 }
