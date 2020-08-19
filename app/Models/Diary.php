@@ -11,4 +11,9 @@ class Diary extends Model
     protected $fillable = ['user_id', 'title', 'content', 'access_range', 'reaction_like'];
 
     public $timestamps = true;
+
+    public function comments()
+    {
+        return $this->hasMany('App\Models\Comment');
+    }
 }
