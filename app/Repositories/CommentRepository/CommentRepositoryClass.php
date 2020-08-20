@@ -3,44 +3,35 @@
 namespace App\Repositories\CommentRepository;
 
 use App\Repositories\CommonRepository\BaseRepositoryClass;
-use Exception;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Comment;
 
 class CommentRepositoryClass extends BaseRepositoryClass implements CommentRepositoryInterface
-{
+{ 
     public function getModel()
     {
         return \App\Models\Comment::class;
     }
 
-    public function createNewComment($request)
+    public function getComments($diaryID)
     {
-        try {
-            $detailCommentArray = [
-                'user_id' => Auth::id(),
-                'diary_id' => $request->diary_id,
-                'content' => $request->content,
-            ];
+        $comments = Comment::where('diary_id', $diaryID)
+            ->paginate(config('comment.perpage', 10));
 
-            $comment = $this->create($detailCommentArray);
+        return $comments;
+    }
 
-            return [
-                'status' => 'success',
-                'data' => [
-                    'data' => $comment,
-                    'internalMessage' => 'Comment has been created',
-                    'code' => 200
-                ]
-            ];
-        } catch (Exception $ex) {
-            return [
-                'status' => 'error',
-                'data' => [
-                    'userMessage' => 'System Error',
-                    'internalMessage' => $ex->getMessage(),
-                    'code' => 500
-                ]
-            ];
-        }
+    public function store($request)
+    {
+        $detailCommentArray = [
+            'user_id' => Auth::id(),
+            'diary_id' => $request->diary_id,
+            'content' => $request->content,
+        ];
+
+        $comment = $this->create($detailCommentArray);
+        
+        return $comment;
     }
 }
+

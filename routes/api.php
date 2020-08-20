@@ -24,3 +24,5 @@ Route::post('diaries', 'Api\DiaryController@createDiary')->middleware('auth');
 Route::put('diaries/{diaryID}', 'Api\DiaryController@update')->middleware('auth');
 Route::delete('diaries', 'Api\DiaryController@delete')->middleware('auth');
 Route::post('comments', 'Api\CommentController@store')->middleware('auth');
+Route::get('comments/{diaryID}', 'Api\CommentController@index');
+
