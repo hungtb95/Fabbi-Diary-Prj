@@ -40,18 +40,7 @@ class AuthController extends BaseAPIController
     {
         $tokenRefresh = Auth::refresh();
 
-        return $this->responseSuccess($this->respondWithToken($tokenRefresh));
-    }
-
-    public function me()
-    {
-        try {
-            $user = Auth::user();
-
-            return $this->responseSuccess($user);
-        } catch (Exception $ex) {
-            return $this->responseError(500, $ex->getMessage());
-        }
+        return $this->responseSuccess($this->respondWithToken($tokenRefresh), 'Refresh token ok');
     }
 
     protected function respondWithToken($token)

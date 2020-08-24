@@ -2,7 +2,6 @@
 
 namespace App\Repositories\UserRepository;
 
-
 use App\Repositories\CommonRepository\BaseRepositoryClass;
 
 class UserRepositoryClass extends BaseRepositoryClass implements UserRepositoryInterface

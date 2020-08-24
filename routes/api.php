@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group([
-    'namespace' => 'App\Http\Controllers\Api'
+    'namespace' => 'Api'
 ], function(){
     Route::post('login', 'AuthController@login');
     Route::post('register', 'UserController@store');
@@ -28,7 +28,6 @@ Route::group([
         ], function () {
             Route::post('logout', 'AuthController@logout');
             Route::post('refresh', 'AuthController@refresh');
-            Route::get('me', 'AuthController@me');
     });
     Route::get('users/diary', 'DiaryController@getDiaryOfUser')->middleware('auth');
     Route::get('diaries', 'DiaryController@getAllPublicDiary');
@@ -38,7 +37,7 @@ Route::group([
     Route::delete('diaries', 'DiaryController@delete')->middleware('auth');
     Route::post('comments', 'CommentController@store')->middleware('auth');
     Route::get('comments/{diaryID}', 'CommentController@index');
-    Route::get('profile/{profile}', 'UserController@show');
-    Route::put('profile/{profile}', 'UserController@update');
+    Route::get('profile/{profile}', 'ProfileController@show');
+    Route::put('profile/{profile}', 'ProfileController@update')->middleware('jwt.auth');
 });
 
