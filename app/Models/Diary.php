@@ -20,4 +20,8 @@ class Diary extends Model
     {
         return $this->hasOne('App\Models\DiaryView', 'diary_id', 'id');
     }
+    public function reactionDiary()
+    {
+        return $this->hasMany('App\Models\ReactionDiary', 'diary_id', 'id');
+    }
 }

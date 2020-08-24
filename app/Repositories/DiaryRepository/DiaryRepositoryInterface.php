@@ -10,4 +10,5 @@ interface DiaryRepositoryInterface
     public function createNewDiaryOfUser($request);
     public function updateDiaryOfUser($request);
     public function deleteDiaryOfUser($request);
+    public function reaction($request);
 }

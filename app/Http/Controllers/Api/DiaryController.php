@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Diary;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DiaryRequest;
 use App\Repositories\DiaryRepository\DiaryRepositoryInterface;
+
 use Illuminate\Support\Facades\Auth;
 
-class DiaryController extends Controller
+class DiaryController extends BaseAPIController
 {
     private $diaryRepo;
 
@@ -62,5 +64,16 @@ class DiaryController extends Controller
         $deleteDiary = $this->diaryRepo->deleteDiaryOfUser($request);
 
         return response()->json($deleteDiary, $deleteDiary['data']['code']);
+    }
+
+    public function expressReaction(DiaryRequest $request)
+    {
+        $statusAddReaction = $this->diaryRepo->reaction($request);
+
+        if ($statusAddReaction['status'] == 'error') {
+            return $this->responseError($statusAddReaction['data']['code'], 'reaction false');
+        }
+
+        return $this->responseSuccess($statusAddReaction, 'reaction success');
     }
 }
