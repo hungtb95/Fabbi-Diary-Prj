@@ -21,4 +21,16 @@ class UserRepositoryClass extends BaseRepositoryClass implements UserRepositoryI
     {
         return $this->model->getAll();
     }
+
+    public function store($request)
+    {
+        $userDetail = [
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+        ];
+
+        $user = $this->create($userDetail);
+
+        return $user;
+    }
 }
