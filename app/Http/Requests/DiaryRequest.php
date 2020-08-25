@@ -24,7 +24,7 @@ class DiaryRequest extends FormRequest
     public function rules()
     {
         return [
-            'perpage' => 'numeric | min:0 | required',
+            // 'perpage' => 'numeric | min:0 | required',
             'title' => 'min:0',
             'content' => 'required',
         ];
@@ -33,8 +33,8 @@ class DiaryRequest extends FormRequest
     public function messages()
     {
         return [
-            'perpage.numeric' => 'not a numeric idiot',
-            'perpage.required' => 'need input something !!',
+            // 'perpage.numeric' => 'not a numeric idiot',
+            // 'perpage.required' => 'need input something !!',
             'content.required' => 'need content of diary !!',
         ];
     }
