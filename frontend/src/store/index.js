@@ -9,8 +9,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    exampleState: "example nè",
-    exampleData: null
+    token: localStorage.getItem('access_token') || null,
   },
   mutations,
   actions,

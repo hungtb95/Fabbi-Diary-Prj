@@ -14,5 +14,22 @@ export default {
         }
       );
     });
+  },
+  retrieveToken({ commit }, credentials) {
+    return new Promise((resolve, reject) => {
+      apiCaller.postRequest(
+        "/api/login",
+        credentials,
+        res => {
+          const token = res.data.data.original.access_token;
+          localStorage.setItem("access_token", token);
+          commit("GET_TOKEN", token);
+          resolve(res);
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
   }
 };

@@ -12,5 +12,13 @@ export default [
     path: "/",
     name: "HelloWorld",
     component: component("HelloWorld")
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: page("Auth/Login"),
+    meta: {
+      requiresVisitor: true
+    }
   }
 ];
