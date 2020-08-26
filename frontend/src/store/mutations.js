@@ -4,5 +4,8 @@ export default {
   },
   SET_DEMO: (state, data) => {
     state.exampleData = data;
+  },
+  GET_TOKEN(state, token) {
+    state.token = token;
   }
 };
