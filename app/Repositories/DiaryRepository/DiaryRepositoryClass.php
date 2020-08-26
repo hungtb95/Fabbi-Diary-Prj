@@ -2,14 +2,13 @@
 
 namespace App\Repositories\DiaryRepository;
 
-use App\Http\Requests\DiaryRequest;
 use App\Models\Diary;
 use App\Models\DiaryView;
+use App\Models\ReactionDiary;
 use App\Repositories\CommonRepository\BaseRepositoryClass;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class DiaryRepositoryClass extends BaseRepositoryClass implements DiaryRepositoryInterface
 {
@@ -201,6 +200,42 @@ class DiaryRepositoryClass extends BaseRepositoryClass implements DiaryRepositor
                     'internalMessage' => 'deleted successfully',
                     'code' => 200,
                 ]
+            ];
+        } catch (Exception $ex) {
+            return [
+                'status' => 'error',
+                'data' => [
+                    'userMessage' => 'System Error',
+                    'internalMessage' => $ex->getMessage(),
+                    'code' => 500,
+                ]
+            ];
+        }
+    }
+
+    public function reaction($request)
+    {
+        try {
+            $diaryID = $request->diaryID;
+            $userID = Auth::id();
+
+            $reactionObj = ReactionDiary::where([
+                'user_id' => $userID,
+                'diary_id' => $diaryID
+            ])
+                ->first();
+
+            if (!$reactionObj) {
+                ReactionDiary::create([
+                    'user_id' => $userID,
+                    'diary_id' => $diaryID
+                ]);
+            } else {
+                $reactionObj->delete();
+            };
+
+            return [
+                'status' => 'success'
             ];
         } catch (Exception $ex) {
             return [

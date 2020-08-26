@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group([
+
     'namespace' => 'Api'
 ], function(){
     Route::post('login', 'AuthController@login');
@@ -39,5 +40,5 @@ Route::group([
     Route::get('comments/{diaryID}', 'CommentController@index');
     Route::get('profile/{profile}', 'ProfileController@show');
     Route::put('profile/{profile}', 'ProfileController@update')->middleware('jwt.auth');
+    Route::post('diaries/reaction', 'DiaryController@expressReaction')->middleware('auth');
 });
-
