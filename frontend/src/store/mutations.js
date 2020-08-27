@@ -5,7 +5,16 @@ export default {
   SET_DEMO: (state, data) => {
     state.exampleData = data;
   },
-  GET_TOKEN(state, token) {
+  SET_TOKEN(state, token) {
     state.token = token;
+  },
+  SET_PROFILEID(state, profileId) {
+    state.profileId = profileId;
+  },
+  DESTROY_TOKEN(state) {
+    state.token = null;
+  },
+  DESTROY_PROFILEID(state) {
+    state.profileId = null;
   }
 };

@@ -8,7 +8,6 @@ use App\Models\ReactionDiary;
 use App\Repositories\CommonRepository\BaseRepositoryClass;
 use Exception;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class DiaryRepositoryClass extends BaseRepositoryClass implements DiaryRepositoryInterface
 {
@@ -18,23 +17,14 @@ class DiaryRepositoryClass extends BaseRepositoryClass implements DiaryRepositor
         return \App\Models\Diary::class;
     }
 
-    public function getDiaryOfUser($title, $perPage)
+    public function getDiaryOfUser()
     {
         try {
             $userID = Auth::id();
 
-            if (empty($title)) {
-                $allPublicDiary = DB::table('diaries')
-                    ->where('user_id', '=', $userID)
-                    ->paginate($perPage);
-            } else {
-                $allPublicDiary = DB::table('diaries')
-                    ->where([
-                        ['user_id', '=', $userID],
-                        ['title', 'like', $title],
-                    ])
-                    ->paginate($perPage);
-            }
+            $allPublicDiary = Diary::filterDiary()
+                ->where('user_id', $userID)
+                ->load(['comments.user.profile','user.profile']);
 
             return $allPublicDiary;
         } catch (Exception $ex) {
@@ -46,23 +36,15 @@ class DiaryRepositoryClass extends BaseRepositoryClass implements DiaryRepositor
         }
     }
 
-    public function getAllPublicDiary($title, $perPage)
+    public function getAllPublicDiary()
     {
         try {
             $public = config('diary.public');
 
-            if (empty($title)) {
-                $allPublicDiary = DB::table('diaries')
-                    ->where('access_range', '=', $public)
-                    ->paginate($perPage);
-            } else {
-                $allPublicDiary = DB::table('diaries')
-                    ->where([
-                        ['title', 'like', $title],
-                        ['access_range', '=', $public]
-                    ])
-                    ->paginate($perPage);
-            }
+            $allPublicDiary = Diary::getDiary()
+                ->where('access_range', $public)
+                ->with('comments.user.profile')
+                ->get();
 
             return $allPublicDiary;
         } catch (Exception $ex) {

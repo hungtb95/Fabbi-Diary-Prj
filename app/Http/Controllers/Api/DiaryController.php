@@ -18,22 +18,16 @@ class DiaryController extends BaseAPIController
         $this->diaryRepo = $diaryRepo;
     }
 
-    public function getDiaryOfUser(DiaryRequest $request)
+    public function getDiaryOfUser()
     {
-        $title = $request->title;
-        $perPage = $request->perpage ?? config('diary.perpage', 10);
-
-        $getAllDiary = $this->diaryRepo->getDiaryOfUser($title, $perPage);
+        $getAllDiary = $this->diaryRepo->getDiaryOfUser();
 
         return response()->json($getAllDiary);
     }
 
-    public function getAllPublicDiary(DiaryRequest $request)
+    public function getAllPublicDiary()
     {
-        $title = $request->title;
-        $perPage = $request->perpage ?? config('diary.perpage', 10);
-
-        $allPublicDiary = $this->diaryRepo->getAllPublicDiary($title, $perPage);
+        $allPublicDiary = $this->diaryRepo->getAllPublicDiary();
 
         return response()->json($allPublicDiary);
     }

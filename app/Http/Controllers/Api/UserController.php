@@ -37,8 +37,13 @@ class UserController extends BaseAPIController
                 if (! $token = Auth::attempt($credentials)) {
                     return $this->responseError(401, 'Unauthorized');
                 }
-                
-                return $this->responseSuccess($this->respondWithToken($token), 'Login success!');
+                $profileId = Auth::user()->profile()->first()->id;
+                $data = [
+                    'token' => $this->respondWithToken($token),
+                    'profileId' => $profileId
+                ];
+
+                return $this->responseSuccess($data, 'Login success!');
             }
 
             return $this->responseSuccess($user, 'Register success!');

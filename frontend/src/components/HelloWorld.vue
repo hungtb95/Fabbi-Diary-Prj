@@ -44,7 +44,7 @@ import { mapGetters, mapMutations } from "vuex";
 export default {
   name: "HelloWorld",
   created() {
-    this.$store.dispatch("DEMO_CALL_API");
+    // this.$store.dispatch("DEMO_CALL_API");
   },
   data() {
     return {

@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\BaseAPIController;
 use Auth;
 use App\Http\Requests\UserRequest;
 use Exception;
+use App\Models\User;
 
 class AuthController extends BaseAPIController
 {
@@ -21,19 +22,32 @@ class AuthController extends BaseAPIController
         if (! $token = Auth::attempt($credentials)) {
             return $this->responseError(401, 'Unauthorized');
         }
+        $profileId = Auth::user()->profile()->first()->id;
+        $data = [
+            'token' => $this->respondWithToken($token),
+            'profileId' => $profileId
+        ];
 
-        return $this->responseSuccess($this->respondWithToken($token), 'Login success!');
+        return $this->responseSuccess($data, 'Login success!');
     }
 
     public function logout()
     {
         try {
             Auth::logout();
-            
+
             return $this->responseSuccess([],'Successfully logged out');
         } catch (Exception $ex) {
             return $this->responseError(500, $ex->getMessage());
         }
+    }
+
+    public function me()
+    {
+
+        $userId = Auth::user()->id;
+
+        return $this->responseSuccess($userId, 'Successfully');
     }
 
     public function refresh()

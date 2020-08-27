@@ -14,6 +14,14 @@ export default [
     component: component("HelloWorld")
   },
   {
+    path: "/home",
+    name: "Home",
+    component: page("Home"),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
     path: "/login",
     name: "Login",
     component: page("Auth/Login"),
@@ -28,5 +36,18 @@ export default [
     meta: {
       requiresVisitor: true
     }
-  }
+  },
+  {
+    path: "/logout",
+    name: "LogOut",
+    component: page("Auth/Logout")
+  },
+  {
+    path: "/profile/:profileId",
+    name: "Profile",
+    component: page("Profile"),
+    meta: {
+      requiresAuth: true
+    }
+  },
 ];
