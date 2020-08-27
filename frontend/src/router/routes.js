@@ -20,5 +20,13 @@ export default [
     meta: {
       requiresVisitor: true
     }
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: page("Auth/Register"),
+    meta: {
+      requiresVisitor: true
+    }
   }
 ];

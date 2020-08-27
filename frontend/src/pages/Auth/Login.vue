@@ -8,7 +8,7 @@
             <form action="#" @submit.prevent="login">
 
               <div class="from-group row justify-content-center mt-5">
-                <input class="form-control col-10 text-center shadow" id="email" type="email" name="email" v-model="email" placeholder="Email">
+                <input class="form-control col-10 text-center shadow" id="email" type="email" name="email" v-model="email" placeholder="Email" autofocus>
               </div>
 
               <div class="from-group mb-more row justify-content-center mt-5">
@@ -42,8 +42,8 @@ export default {
     };
   },
   methods: {
-    login() {
-      this.$store.dispatch("retrieveToken", {
+    async login() {
+      await this.$store.dispatch("retrieveToken", {
         email: this.email,
         password: this.password
       }).then(() => {
