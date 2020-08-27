@@ -31,5 +31,23 @@ export default {
         }
       );
     });
+  },
+  retrieveTokenWhenRegister({ commit }, credentials) {
+    return new Promise((resolve, reject) => {
+      apiCaller.postRequest(
+        "/api/register",
+        credentials,
+        res => {
+          const token = res.data.data.original.access_token;
+          console.log(res);
+          localStorage.setItem("access_token", token);
+          commit("GET_TOKEN", token);
+          resolve(res);
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
   }
 };
