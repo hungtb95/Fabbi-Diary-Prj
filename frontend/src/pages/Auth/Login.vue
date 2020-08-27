@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     async login() {
-      await this.$store.dispatch("retrieveToken", {
+      await this.$store.dispatch("RETRIEVE_TOKEN", {
         email: this.email,
         password: this.password
       }).then(() => {

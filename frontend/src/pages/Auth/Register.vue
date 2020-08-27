@@ -24,9 +24,11 @@
               </div>
 
             </form>
-
-            <div v-if="showAlert" v-for="error in errors">
-              <h6 class="login-heading card-title mt-5 mb-5 font-weight-bold text-danger">{{ error }}</h6>
+            <div>
+              <h6 v-if="showAlert" class="login-heading card-title mt-5 mb-5 font-weight-bold text-danger">Please confirm your password!!!<i class="fas fa-long-arrow-alt-right"></i></h6>
+            </div>
+            <div v-for="(error, index) in errors" :key="index">
+              <h6 class="login-heading card-title mt-5 mb-5 font-weight-bold text-danger">{{ error }}<i class="fas fa-long-arrow-alt-right"></i></h6>
             </div>
           </div>
         </div>
@@ -50,7 +52,7 @@ export default {
   methods: {
     async signup() {
       if (this.validate() === true) {
-        await this.$store.dispatch("retrieveTokenWhenRegister", {
+        await this.$store.dispatch("RETRIEVE_TOKEN_REGISTER", {
           email: this.email,
           password: this.password
         }).then(() => {
@@ -64,11 +66,11 @@ export default {
       }
     },
     validate() {
-      if(this.password === this.passConfirm){
+      if (this.password === this.passConfirm) {
         return true;
-      } else {
-        this.errors['password'] = 'Password confirm not match';
       }
+      this.errors["password"] = "Password confirm not match";
+      return false;
     }
   }
 };

@@ -4,15 +4,25 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Api\BaseAPIController;
 use App\Http\Requests\ProfileRequest;
+use App\Repositories\ProfileRepository\ProfileRepositoryInterface;
 use Exception;
 use App\Models\Profile;
 use Auth;
 
 class ProfileController extends BaseAPIController
 {
+    protected $profileRepository;
+
+    public function __construct(ProfileRepositoryInterface $profileRepository)
+    {
+        $this->profileRepository = $profileRepository;
+    }
+
     public function show(Profile $profile)
     {
-        return $this->responseSuccess($profile, 'Get profile of user');
+        $data = $this->profileRepository->show($profile);
+
+        return $this->responseSuccess($data, 'Get profile of user');
     }
 
     public function update(ProfileRequest $request, Profile $profile)

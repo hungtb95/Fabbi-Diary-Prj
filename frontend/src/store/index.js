@@ -9,7 +9,12 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    token: localStorage.getItem("access_token") || null
+    token: localStorage.getItem("access_token") || null,
+    profileId: localStorage.getItem("profileId") || null,
+    profile: {},
+    countDiaries: "",
+    countView: "",
+    diaries: ""
   },
   mutations,
   actions,
