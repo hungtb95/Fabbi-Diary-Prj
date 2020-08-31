@@ -27,7 +27,9 @@
                 <span>User</span>
               </template>
               <b-dropdown-item href="#">Setting</b-dropdown-item>
-              <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+              <b-dropdown-item href="#">Sign In</b-dropdown-item>
+              <b-dropdown-item href="#">Log Out</b-dropdown-item>
+              <b-dropdown-item href="#">Log In</b-dropdown-item>
             </b-nav-item-dropdown>
           </b-navbar-nav>
         </b-collapse>
@@ -36,11 +38,17 @@
   </header>
 </template>
 <script>
-export default {};
+export default {
+  data() {
+    return {};
+  },
+  methods: {},
+  mounted() {}
+};
 </script>
 
 <style>
-.layout-header{
+.layout-header {
   background-color: #f1f1f1;
 }
 

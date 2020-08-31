@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\UserRequest;
-use app\Repositories\UserRepository\UserRepositoryInterface;
+use App\Repositories\UserRepository\UserRepositoryInterface;
 use Exception;
 use App\Http\Controllers\Api\BaseAPIController;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends BaseAPIController
 {
@@ -21,19 +22,19 @@ class UserController extends BaseAPIController
     public function index()
     {
         $users = $this->userRepo->getAllUser();
-        
+
         return response()->json($users);
     }
 
-    
+
     public function store(UserRequest $request)
     {
         try {
             $user = $this->userRepository->store($request);
             $user->profile()->create([]);
 
-            if($this->loginAfterSingUp){
-                return redirect()->action('AuthController@login', ['request'=>$request]);
+            if (! $token = Auth::attempt($request)) {
+                return $this->responseError(401, 'Unauthorized');
             }
 
             return $this->responseSuccess($user, 'Register success!');

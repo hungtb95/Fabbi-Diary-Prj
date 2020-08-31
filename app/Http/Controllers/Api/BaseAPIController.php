@@ -1,5 +1,5 @@
-
 <?php
+
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -10,7 +10,7 @@ class BaseAPIController extends Controller
     public function __construct()
     {
     }
-    
+
     public function responseSuccess($data = [], $message, $statusCode = 200)
     {
         $response = [

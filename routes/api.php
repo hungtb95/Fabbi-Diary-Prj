@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group([
-    'namespace' => 'App\Http\Controllers\Api'
+    'namespace' => 'Api'
 ], function () {
     Route::post('login', 'AuthController@login');
     Route::post('register', 'UserController@store');

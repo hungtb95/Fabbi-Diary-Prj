@@ -12,5 +12,15 @@ export default [
     path: "/",
     name: "HelloWorld",
     component: component("HelloWorld")
+  },
+  {
+    path: "/homepage",
+    name: "HomePage",
+    component: page("HomePage")
+  },
+  {
+    path: "/detaildiary",
+    name: "DetailDiary",
+    component: page("DetailDiary")
   }
 ];

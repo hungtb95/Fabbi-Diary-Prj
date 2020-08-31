@@ -4,6 +4,7 @@ import mutations from "./mutations";
 import actions from "./actions";
 import getters from "./getters";
 import exampleModule from "./modules/exampleModule";
+import homePage from "./modules/homePage";
 
 Vue.use(Vuex);
 
@@ -16,6 +17,7 @@ export default new Vuex.Store({
   actions,
   getters,
   modules: {
-    exampleModule
+    exampleModule,
+    homePage
   }
 });

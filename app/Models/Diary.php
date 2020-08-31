@@ -14,7 +14,7 @@ class Diary extends Model
 
     public function comments()
     {
-        return $this->hasMany('App\Models\Comment');
+        return $this->hasMany('App\Models\Comment', 'diary_id', 'id');
     }
     public function diaryView()
     {
@@ -23,5 +23,9 @@ class Diary extends Model
     public function reactionDiary()
     {
         return $this->hasMany('App\Models\ReactionDiary', 'diary_id', 'id');
+    }
+    public function profile()
+    {
+        return $this->belongsTo('App\Models\Profile', 'user_id', 'user_id');
     }
 }

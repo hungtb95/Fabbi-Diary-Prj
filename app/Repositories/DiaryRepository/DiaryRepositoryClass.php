@@ -2,6 +2,7 @@
 
 namespace App\Repositories\DiaryRepository;
 
+use App\Models\Comment;
 use App\Models\Diary;
 use App\Models\DiaryView;
 use App\Models\ReactionDiary;
@@ -18,22 +19,22 @@ class DiaryRepositoryClass extends BaseRepositoryClass implements DiaryRepositor
         return \App\Models\Diary::class;
     }
 
-    public function getDiaryOfUser($title, $perPage)
+    public function getDiaryOfUser($title)
     {
         try {
             $userID = Auth::id();
 
             if (empty($title)) {
-                $allPublicDiary = DB::table('diaries')
-                    ->where('user_id', '=', $userID)
-                    ->paginate($perPage);
+                $allPublicDiary = Diary::where('user_id', '=', $userID)
+                    ->with('comments.user.profile')
+                    ->get();
             } else {
-                $allPublicDiary = DB::table('diaries')
-                    ->where([
-                        ['user_id', '=', $userID],
-                        ['title', 'like', $title],
-                    ])
-                    ->paginate($perPage);
+                $allPublicDiary = Diary::where([
+                    ['user_id', '=', $userID],
+                    ['title', 'like', $title],
+                ])
+                    ->with('comments.user.profile')
+                    ->get();
             }
 
             return $allPublicDiary;
@@ -46,22 +47,30 @@ class DiaryRepositoryClass extends BaseRepositoryClass implements DiaryRepositor
         }
     }
 
-    public function getAllPublicDiary($title, $perPage)
+    public function getAllPublicDiary($title)
     {
         try {
             $public = config('diary.public');
 
             if (empty($title)) {
-                $allPublicDiary = DB::table('diaries')
-                    ->where('access_range', '=', $public)
-                    ->paginate($perPage);
+                $allPublicDiary = Diary::where('access_range', '=', $public)
+                    ->with([
+                        'comments.user.profile',
+                        'profile',
+                        'reactionDiary'
+                    ])
+                    ->get();
             } else {
-                $allPublicDiary = DB::table('diaries')
+                $allPublicDiary = Diary::with([
+                    'comments.user.profile',
+                    'profile',
+                    'reactionDiary'
+                ])
                     ->where([
-                        ['title', 'like', $title],
+                        ['title', 'like', '%' . $title . '%'],
                         ['access_range', '=', $public]
                     ])
-                    ->paginate($perPage);
+                    ->get();
             }
 
             return $allPublicDiary;
@@ -117,8 +126,8 @@ class DiaryRepositoryClass extends BaseRepositoryClass implements DiaryRepositor
     {
         try {
             $detailDiaryArray = [
-                'user_id' => Auth::id(),
-                'title' => $request->title,
+                // 'user_id' => Auth::id(),
+                'user_id' => 1,
                 'content' => $request->content,
                 'access_range' => $request->access_range,
             ];

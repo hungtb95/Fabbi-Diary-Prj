@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Http\Request;
 use App\Models\Diary;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DiaryRequest;
@@ -18,22 +19,20 @@ class DiaryController extends BaseAPIController
         $this->diaryRepo = $diaryRepo;
     }
 
-    public function getDiaryOfUser(DiaryRequest $request)
+    public function getDiaryOfUser(Request $request)
     {
         $title = $request->title;
-        $perPage = $request->perpage ?? config('diary.perpage', 10);
 
-        $getAllDiary = $this->diaryRepo->getDiaryOfUser($title, $perPage);
+        $getAllDiary = $this->diaryRepo->getDiaryOfUser($title);
 
         return response()->json($getAllDiary);
     }
 
-    public function getAllPublicDiary(DiaryRequest $request)
+    public function getAllPublicDiary(Request $request)
     {
         $title = $request->title;
-        $perPage = $request->perpage ?? config('diary.perpage', 10);
 
-        $allPublicDiary = $this->diaryRepo->getAllPublicDiary($title, $perPage);
+        $allPublicDiary = $this->diaryRepo->getAllPublicDiary($title);
 
         return response()->json($allPublicDiary);
     }
@@ -45,7 +44,7 @@ class DiaryController extends BaseAPIController
         return response()->json($detailDiaries);
     }
 
-    public function createDiary(DiaryRequest $request)
+    public function createDiary(Request $request)
     {
         $newDiary = $this->diaryRepo->createNewDiaryOfUser($request);
 
@@ -66,7 +65,7 @@ class DiaryController extends BaseAPIController
         return response()->json($deleteDiary, $deleteDiary['data']['code']);
     }
 
-    public function expressReaction(DiaryRequest $request)
+    public function expressReaction(Request $request)
     {
         $statusAddReaction = $this->diaryRepo->reaction($request);
 
