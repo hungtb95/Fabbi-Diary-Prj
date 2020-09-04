@@ -29,7 +29,7 @@ class Diary extends Model
     public function reactionDiary()
     {
         return $this->hasMany('App\Models\ReactionDiary', 'diary_id', 'id');
-    }
+    }    
 
     public static function filterDiary()
     {

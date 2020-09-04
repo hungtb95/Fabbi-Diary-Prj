@@ -77,13 +77,15 @@ export default {
       );
     });
   },
-  retrieveProfile({ commit }, data) {
+  RETRIEVE_PROFILE({ commit }, data) {
     return new Promise((resolve, reject) => {
       apiCaller.getRequest(
         "/api/profile/".concat(data.profileId),
         [],
         res => {
-          resolve(res);
+          commit("SET_PROFILE", res.data.data.profile);
+          commit("SET_COUNT_DIARIES", res.data.data.countDiaries);
+          commit("SET_COUNT_VIEW", res.data.data.countView);
         },
         err => {
           reject(err);
@@ -91,16 +93,17 @@ export default {
       );
     });
   },
-  retrieveDiary({ commit }, data) {
+  RETRIEVE_DIARY({ commit }, data) {
     return new Promise((resolve, reject) => {
       apiCaller.getRequest(
         "/api/users/diary", {
           headers: {
-            Authorization: "Bearer " + data.token,
+            Authorization: "Bearer ".concat(data.token),
             Accept: "application/json",
             "Content-Type": "application/json"
-        }},
+          } },
         res => {
+          commit("SET_DIARIES", res.data)
           resolve(res);
         },
         err => {
@@ -109,13 +112,13 @@ export default {
       );
     });
   },
-  createDiary: ({ commit }, data) => {
+  CREATE_DIARY: ({ commit }, data) => {
     return new Promise((resolve, reject) => {
       apiCaller.postRequest(
         "/api/diaries",
         data,
         res => {
-          commit("createDiary");
+          resolve(res);
         },
         err => {
           reject(err);
@@ -129,7 +132,21 @@ export default {
         "/api/diaries",
         [],
         res => {
-          commit("GET_CONTENT_DIARY", res.data);
+          resolve(res);
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
+  },
+  UPDATE_PROFILE: ({ commit }, data) => {
+    return new Promise((resolve, reject) => {
+      apiCaller.putRequest(
+        "/api/profile/".concat(this.state.profileId),
+        data,
+        res => {
+          commit('UPDATE_PROFILE', data);
         },
         err => {
           reject(err);

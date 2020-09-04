@@ -2,7 +2,7 @@
   <b-container class="create-form">
     <b-row class="form-body">
       <div class="avatar">
-        <img src="https://via.placeholder.com/80" alt="avatar" />
+        <img :src="'http://localhost:8000/images/avatar/'+avatar" alt="avatar" />
       </div>
       <b-col class="content">
         <input type="text" placeholder="Create new diary..." name="content" v-model="content"/>
@@ -23,6 +23,7 @@
 <script>
 export default {
   name: "DiaryCreate",
+  props: ["avatar", "name"],
   data() {
     return {
       mode: 0,
@@ -37,9 +38,24 @@ export default {
     async createDiary() {
       const request = {
         content: this.content,
-        access_range: this.mode
+        access_range: this.mode,
+        token: this.$store.state.token
       };
-      this.$store.dispatch("createDiary", request);
+      this.$store.dispatch("CREATE_DIARY", request)
+        .then(() => {
+          const diaryNew = {
+            id: "",
+            comments: {},
+            user: {
+              profile: {
+                avatar: this.avatar,
+                full_name: this.name
+              }
+            },
+            content: this.content
+          };
+          this.commit('ADD_NEW_DIARY_USER', diaryNew);
+        });
     }
   }
 };

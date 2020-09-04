@@ -2,14 +2,14 @@
   <b-container class="diary-new">
     <div class="diary-new-content">
       <b-row class="avatar">
-        <b-img rounded="circle" alt="Circle image" src="https://via.placeholder.com/100"></b-img>
+        <b-img rounded="circle" alt="Circle image" :src="'http://localhost:8000/images/avatar/'+avatar"></b-img>
         <div class="name-user">
-          <p class="name">Nguyen Hong Son</p>
+          <p class="name font-weight-bold" v-text="name"></p>
           <p class="time">17 gio truoc</p>
         </div>
       </b-row>
       <b-row class="content-diary-row">
-        <p class="content-diary">Content diary</p>
+        <p class="content-diary" v-text="content"></p>
       </b-row>
       <b-row class="image-diary-row">
         <b-img
@@ -49,6 +49,7 @@ export default {
   data() {
     return {};
   },
+  props: ["avatar", "name", "content"],
   methods: {
     getContentDiary() {
       this.$store.dispatch("GET_CONTENT_DIARY");

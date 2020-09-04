@@ -1,6 +1,10 @@
 <template>
   <div class="active tab-pane">
-  <diaryNew></diaryNew>
+  <diaryNew
+    v-bind:avatar="this.avatar"
+    v-bind:name="this.name"
+    v-bind:content="this.content"
+  />
   <comment
     v-for="comment in comments"
     v-bind:key="comment.id"
@@ -14,21 +18,19 @@
 </template>
 
 <script>
-import Comments from "./Comment.vue";
-import DiaryNew from "./DiaryNews.vue";
+import Comments from "./Comment";
+import DiaryNew from "./DiaryNews";
 
 export default {
   name: "diary",
-  props: {
-    comments: Array
-  },
+  props: ["comments", "avatar", "name", "content"],
   components: {
     comment: Comments,
     diaryNew: DiaryNew
   },
   methods: {
     createComment() {
-      
+
     }
   }
 };

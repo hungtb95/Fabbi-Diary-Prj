@@ -26,7 +26,7 @@
               <template v-slot:button-content>
                 <span>User</span>
               </template>
-              <router-link class="dropdown-item" v-if="loggedIn" to="/setting">Setting</router-link>
+              <b-dropdown-item v-if="loggedIn" @click="settingPath()">Setting</b-dropdown-item>
               <router-link class="dropdown-item" v-if="loggedIn" to="/logout">Logout</router-link>
               <router-link class="dropdown-item" v-if="!loggedIn" to="/login">Login</router-link>
               <router-link class="dropdown-item" v-if="!loggedIn" to="/register">Register</router-link>
@@ -42,17 +42,20 @@
 export default {
   methods: {
     homePath() {
-      this.$router.push('/home');
+      this.$router.push("/home");
     },
     profilePath() {
-      if(this.$store.state.profileId !== null) {
-        this.$router.push('/profile/'+this.$store.state.profileId);
+      if (this.$store.state.profileId !== null) {
+        this.$router.push("/profile/".concat(this.$store.state.profileId));
       }
+    },
+    settingPath() {
+      this.$router.push("/update/profile/".concat(this.$store.state.profileId));
     }
   },
   computed: {
     loggedIn() {
-      return this.$store.getters.loggedIn
+      return this.$store.getters.loggedIn;
     }
   }
 };

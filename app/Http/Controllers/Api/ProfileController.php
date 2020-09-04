@@ -30,15 +30,13 @@ class ProfileController extends BaseAPIController
         try{
             $user = Auth::user();
             if($user->id === $profile->user_id) {
-                $profile->update($request->all());
-            } else {
-                return $this->responseError(404, 'Invalid user');
+                $data = $this->profileRepository->updateProfile($profile, $request);
+                
+                return $this->responseSuccess($data, 'Update profile success!');
             }
-
-            return $this->responseSuccess($profile, 'Update profile success!');
+            return $this->responseError(404, 'Invalid user');
         } catch (Exception $ex) {
             return $this->responseError(500, $ex->getMessage());
         }
     }
-
 }

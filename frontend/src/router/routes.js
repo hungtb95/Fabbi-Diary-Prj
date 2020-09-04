@@ -50,4 +50,12 @@ export default [
       requiresAuth: true
     }
   },
+  {
+    path: "/update/profile/:profileId",
+    name: "UpdateProfile",
+    component: page("UpdateProfile"),
+    meta: {
+      requiresAuth: true
+    }
+  }
 ];

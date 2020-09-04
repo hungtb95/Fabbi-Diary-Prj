@@ -105,9 +105,8 @@ class DiaryRepositoryClass extends BaseRepositoryClass implements DiaryRepositor
                 'access_range' => $request->access_range,
             ];
 
-            $this->create($detailDiaryArray);
-
-            return true;
+            $result = Diary::create($detailDiaryArray);
+            return $result;
         } catch (Exception $ex) {
             return $error = [
                 'userMessage' => 'System Error',

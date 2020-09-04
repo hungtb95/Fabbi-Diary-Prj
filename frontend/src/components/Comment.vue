@@ -16,8 +16,8 @@
 export default {
   name: "comment",
   props: {
-    'content': String,
-    'name': String
+    content: String,
+    name: String
   },
   methods: {
 

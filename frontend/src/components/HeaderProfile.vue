@@ -5,7 +5,7 @@
             <h3 class="widget-user-username" v-text="name"></h3>
         </div>
         <div class="widget-user-image">
-            <img class="img-circle" src="#" alt="User Avatar">
+            <img class="img-circle" :src="'http://localhost:8000/images/avatar/'+avatar" alt="User Avatar">
         </div>
         <div class="box-footer">
             <div class="row">
@@ -35,12 +35,21 @@
 
 <script>
 export default {
-    name: "profile",
-    props: {
-        name: String,
-        countDiaries: String,
-        countView: String,
-        avatar: String
-    }
-}
+  name: "HeaderProfile",
+  props: [
+    "name",
+    "countDiaries",
+    "countView",
+    "avatar"
+  ]
+};
 </script>
+
+<style scoped>
+.ava {
+  border-radius: 50%;
+  max-width: 100%;
+  height: auto;
+}
+</style>
+
