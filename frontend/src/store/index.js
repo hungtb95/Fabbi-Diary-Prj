@@ -3,8 +3,8 @@ import Vuex from "vuex";
 import mutations from "./mutations";
 import actions from "./actions";
 import getters from "./getters";
-import exampleModule from "./modules/exampleModule";
 import homePage from "./modules/homePage";
+import detailDiary from "./modules/detailDiary";
 
 Vue.use(Vuex);
 
@@ -17,7 +17,7 @@ export default new Vuex.Store({
   actions,
   getters,
   modules: {
-    exampleModule,
-    homePage
+    homePage,
+    detailDiary
   }
 });

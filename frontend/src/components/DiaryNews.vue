@@ -16,23 +16,21 @@
           <p class="time">{{formatDate(diary.created_at)}}</p>
         </div>
         <div class="drop-down">
-          <b-dropdown id="dropdown-1" text="" class="m-md-2">
-            <b-dropdown-item>Edit Diary</b-dropdown-item>
+          <b-dropdown id="dropdown-1" text class="m-md-2">
+              <b-dropdown-item :href="'/detaildiary/' + diary.id">Edit Diary</b-dropdown-item>
           </b-dropdown>
         </div>
       </b-row>
       <b-row class="title-diary-row">
         <i>
-          <a href="/detaildiary" class="title-link">
-            <p class="title-diary">{{diary.title}}</p>
-          </a>
+          <p class="title-diary">{{diary.title}}</p>
         </i>
       </b-row>
       <b-row class="content-diary-row">
         <p class="content-diary">{{diary.content}}</p>
       </b-row>
       <b-row class="image-diary-row">
-        <b-img :src="diary.image" fluid-grow alt="Responsive image" class="image-diary-content"></b-img>
+        <b-img :src="'http://localhost:8000/images/image/' + diary.image" fluid-grow alt="Responsive image" class="image-diary-content"></b-img>
       </b-row>
       <b-row class="like-cmt-amount">
         <font-awesome-icon icon="heart" class="icon heart" />
@@ -132,7 +130,7 @@ export default {
           float: left;
         }
       }
-      .drop-down{
+      .drop-down {
         margin-left: 54rem;
       }
     }

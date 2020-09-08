@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Diary extends Model
 {
     protected $table = 'diaries';
 
-    protected $fillable = ['user_id', 'title', 'content', 'access_range', 'reaction_like'];
+    protected $fillable = ['user_id', 'title', 'content', 'access_range', 'reaction_like', 'image'];
 
     public $timestamps = true;
 
