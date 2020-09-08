@@ -2,6 +2,7 @@
 
 namespace App\Repositories\DiaryRepository;
 
+use Illuminate\Support\Str;
 use App\Models\Comment;
 use App\Models\Diary;
 use App\Models\DiaryView;
@@ -149,11 +150,33 @@ class DiaryRepositoryClass extends BaseRepositoryClass implements DiaryRepositor
         try {
             $diaryID = $request->diaryID;
 
-            $detailUpdateDiaryArray = [
-                'title' => $request->title,
-                'content' => $request->content,
-                'access_range' => $request->access_range,
-            ];
+            if (strlen($request->image) > 25) {
+                $exploded = explode(',', $request->image);
+                $decoded = base64_decode($exploded[1]);
+
+                if (str_contains($exploded[0], 'jpeg')) {
+                    $expension = 'jpg';
+                } else {
+                    $expension = 'png';
+                }
+
+                $fileName = Str::random(20) . '.' . $expension;
+                $path = public_path() . "/images/image/" . $fileName;
+                file_put_contents($path, $decoded);
+
+                $detailUpdateDiaryArray = [
+                    'title' => $request->title,
+                    'content' => $request->content,
+                    'access_range' => $request->access_range,
+                    'image' => $fileName,
+                ];
+            } else {
+                $detailUpdateDiaryArray = [
+                    'title' => $request->title,
+                    'content' => $request->content,
+                    'access_range' => $request->access_range,
+                ];
+            }
 
             $updateDiary = $this->update($diaryID, $detailUpdateDiaryArray);
 
