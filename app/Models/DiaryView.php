@@ -11,4 +11,9 @@ class DiaryView extends Model
     protected $fillable = ['diary_id', 'view'];
 
     public $timestamps = true;
+    
+    public function diary()
+    {
+        return $this->belongsTo('App\Models\Diary');
+    }
 }

@@ -27,6 +27,11 @@ class AppServiceProvider extends ServiceProvider
             \App\Repositories\CommentRepository\CommentRepositoryInterface::class,
             \App\Repositories\CommentRepository\CommentRepositoryClass::class
         );
+
+        $this->app->singleton(
+            \App\Repositories\ProfileRepository\ProfileRepositoryInterface::class,
+            \App\Repositories\ProfileRepository\ProfileRepositoryClass::class
+        );
     }
 
     /**

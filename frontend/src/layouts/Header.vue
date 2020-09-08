@@ -10,8 +10,8 @@
 
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
-            <b-nav-item href="#">Home</b-nav-item>
-            <b-nav-item href="#">Profile</b-nav-item>
+            <b-nav-item @click="homePath()">Home</b-nav-item>
+            <b-nav-item @click="profilePath()">Profile</b-nav-item>
           </b-navbar-nav>
 
           <!-- Right aligned nav items -->
@@ -26,8 +26,10 @@
               <template v-slot:button-content>
                 <span>User</span>
               </template>
-              <b-dropdown-item href="#">Setting</b-dropdown-item>
-              <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+              <router-link class="dropdown-item" v-if="loggedIn" to="/setting">Setting</router-link>
+              <router-link class="dropdown-item" v-if="loggedIn" to="/logout">Logout</router-link>
+              <router-link class="dropdown-item" v-if="!loggedIn" to="/login">Login</router-link>
+              <router-link class="dropdown-item" v-if="!loggedIn" to="/register">Register</router-link>
             </b-nav-item-dropdown>
           </b-navbar-nav>
         </b-collapse>
@@ -35,8 +37,25 @@
     </div>
   </header>
 </template>
+
 <script>
-export default {};
+export default {
+  methods: {
+    homePath() {
+      this.$router.push({name:'Home'});
+    },
+    profilePath() {
+      if(this.$store.state.profileId !== null) {
+        this.$router.push({name:'Profile', params: {profileId: this.$store.state.profileId}});
+      }
+    }
+  },
+  computed: {
+    loggedIn() {
+      return this.$store.getters.loggedIn
+    }
+  }
+};
 </script>
 
 <style>

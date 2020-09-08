@@ -28,5 +28,18 @@ export default [
     meta: {
       requiresVisitor: true
     }
-  }
+  },
+  {
+    path: "/logout",
+    name: "LogOut",
+    component: page("Auth/Logout")
+  },
+  {
+    path: "/profile/:profileId",
+    name: "Profile",
+    component: page("Profile"),
+    meta: {
+      requiresAuth: true
+    }
+  },
 ];
